@@ -10,38 +10,43 @@
   --mut: #a9a193;
   --br: #b8895a;
   --br2: #d3a977;
-  --r: 14px;
+  --r: 0.875rem;
   --serif: 'Noto Serif Display', 'Noto Serif', Georgia, serif;
   --sans: 'Manrope', system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth; -webkit-text-size-adjust: 100%;
+  /* Всё в rem: на широких экранах (1920 и больше) сайт сам становится крупнее.
+     До 1360 пикселей ширины = 16px, на 1920 = 24px (в 1,5 раза), потолок 30px. */
+  font-size: clamp(16px, calc(1.43vw - 3.43px), 30px);
+}
 body {
   background: var(--bg);
   color: var(--tx);
-  font: 400 17px/1.6 var(--sans);
+  font: 400 1.0625rem/1.6 var(--sans);
   overflow-x: hidden;
   animation: page-in .16s ease-out;
 }
 @keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
-@media (max-width: 640px) { body { padding-bottom: 84px; } }
+@media (max-width: 640px) { body { padding-bottom: 5.25rem; } }
 
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+.wrap { max-width: 70rem; margin: 0 auto; padding: 0 1.25rem; }
 h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.15; letter-spacing: -.01em; }
-h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 18px; }
-section { padding: 56px 0; }
+h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 1.125rem; }
+section { padding: 3.5rem 0; }
 p { color: var(--mut); max-width: 62ch; }
-p + p { margin-top: 12px; }
+p + p { margin-top: 0.75rem; }
 .eyebrow {
-  font-size: clamp(19px, 2.6vw, 24px);
+  font-size: clamp(1.1875rem, 2.6vw, 1.5rem);
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--br2);
-  margin-bottom: 14px;
+  margin-bottom: 0.875rem;
   font-weight: 700;
 }
 
@@ -49,33 +54,33 @@ p + p { margin-top: 12px; }
 .site-header {
   position: sticky; top: 0; z-index: 50;
   background: rgba(26, 27, 29, .92);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(0.625rem);
   border-bottom: 1px solid var(--line);
 }
-.hd { display: flex; align-items: center; gap: 14px; height: 64px; }
+.hd { display: flex; align-items: center; gap: 0.875rem; height: 4rem; }
 .brand {
-  display: flex; align-items: center; gap: 11px;
-  font-family: var(--serif); font-size: 17px; letter-spacing: .06em; line-height: 1.1;
+  display: flex; align-items: center; gap: 0.6875rem;
+  font-family: var(--serif); font-size: 1.0625rem; letter-spacing: .06em; line-height: 1.1;
   flex: 1;
 }
-.brand .lg { height: 38px; width: auto; }
+.brand .lg { height: 2.375rem; width: auto; }
 .brand small {
-  display: block; font-family: var(--sans); font-size: 10px; letter-spacing: .3em; color: var(--br2);
+  display: block; font-family: var(--sans); font-size: 0.625rem; letter-spacing: .3em; color: var(--br2);
 }
-nav.d { display: none; gap: 26px; font-size: 15px; color: var(--mut); }
+nav.d { display: none; gap: 1.625rem; font-size: 0.9375rem; color: var(--mut); }
 nav.d a:hover, nav.d a.on { color: var(--tx); }
-.fl { display: flex; gap: 6px; }
+.fl { display: flex; gap: 0.375rem; }
 .fl button {
-  width: 30px; height: 30px; border-radius: 50%; overflow: hidden;
+  width: 1.875rem; height: 1.875rem; border-radius: 50%; overflow: hidden;
   opacity: .45; border: 2px solid transparent; padding: 0;
 }
 .fl button.on { opacity: 1; border-color: var(--br); }
 .fl svg { width: 100%; height: 100%; display: block; }
-.burger { width: 44px; height: 44px; display: grid; place-content: center; gap: 5px; }
-.burger i { display: block; width: 22px; height: 2px; background: var(--tx); }
+.burger { width: 2.75rem; height: 2.75rem; display: grid; place-content: center; gap: 0.3125rem; }
+.burger i { display: block; width: 1.375rem; height: 2px; background: var(--tx); }
 .menu { display: none; border-top: 1px solid var(--line); background: var(--bg); }
 .menu.open { display: block; }
-.menu a { display: block; padding: 16px 20px; border-bottom: 1px solid var(--line); font-size: 18px; }
+.menu a { display: block; padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); font-size: 1.125rem; }
 @media (min-width: 860px) {
   nav.d { display: flex; }
   .burger { display: none; }
@@ -84,37 +89,37 @@ nav.d a:hover, nav.d a.on { color: var(--tx); }
 
 /* ===== Кнопки и ссылки ===== */
 .btn {
-  display: inline-flex; align-items: center; gap: 14px;
-  min-height: 58px; padding: 0 22px; border-radius: 12px;
+  display: inline-flex; align-items: center; gap: 0.875rem;
+  min-height: 3.625rem; padding: 0 1.375rem; border-radius: 0.75rem;
   background: linear-gradient(115deg, #6e5233 0%, #a07b4b 55%, #7d5e39 100%);
   border: 1px solid rgba(235, 200, 150, .28);
-  color: #fff; font-weight: 600; font-size: 17px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
-  transition: filter .2s;
+  color: #fff; font-weight: 600; font-size: 1.0625rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, .35);
+  transition: filter .2s, opacity .25s;
 }
 .btn span { flex: 1; }
-.btn .ar { width: 22px; height: 22px; opacity: .9; transition: transform .2s; }
-.btn .wi { width: 26px; height: 26px; flex: none; }
+.btn .ar { width: 1.375rem; height: 1.375rem; opacity: .9; transition: transform .2s; }
+.btn .wi { width: 1.625rem; height: 1.625rem; flex: none; }
 .btn:hover { filter: brightness(1.08); }
-.btn:hover .ar { transform: translateX(4px); }
-.btn.bk { display: flex; width: min(100%, 380px); margin: 0 auto; padding-right: 50px; }
+.btn:hover .ar { transform: translateX(0.25rem); }
+.btn.bk { display: flex; width: min(100%, 23.75rem); margin: 0 auto; padding-right: 3.125rem; }
 .btn.bk span { text-align: center; }
-.btn.bk:hover .ar { transform: translateX(-4px); }
+.btn.bk:hover .ar { transform: translateX(-0.25rem); }
 
 .link {
-  color: var(--br2); font-weight: 600; font-size: 18px;
-  display: inline-flex; align-items: center; gap: 10px; padding: 12px 0;
+  color: var(--br2); font-weight: 600; font-size: 1.125rem;
+  display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.75rem 0;
 }
-.link svg { width: 26px; height: 26px; transition: transform .2s; }
-.link:hover svg { transform: translateX(4px); }
+.link svg { width: 1.625rem; height: 1.625rem; transition: transform .2s; }
+.link:hover svg { transform: translateX(0.25rem); }
 .link:hover { text-decoration: underline; }
 
 .back {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 20px 0 0; color: var(--br2); font-weight: 600; font-size: 18px;
+  display: inline-flex; align-items: center; gap: 0.625rem;
+  padding: 1.25rem 0 0; color: var(--br2); font-weight: 600; font-size: 1.125rem;
 }
-.back svg { width: 26px; height: 26px; transition: transform .2s; }
-.back:hover svg { transform: translateX(-4px); }
+.back svg { width: 1.625rem; height: 1.625rem; transition: transform .2s; }
+.back:hover svg { transform: translateX(-0.25rem); }
 
 /* ===== Слайдер «до / после» ===== */
 .ba {
@@ -126,24 +131,24 @@ nav.d a:hover, nav.d a.on { color: var(--tx); }
 .ba .b { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
 .ba .ln { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; background: var(--br2); transform: translateX(-1px); }
 .ba .kn {
-  position: absolute; top: 50%; left: var(--pos); width: 44px; height: 44px; margin: -22px 0 0 -22px;
+  position: absolute; top: 50%; left: var(--pos); width: 2.75rem; height: 2.75rem; margin: -1.375rem 0 0 -1.375rem;
   border-radius: 50%; background: var(--br); color: #1a1208;
   display: grid; place-content: center; font-weight: 700; pointer-events: none;
 }
 .ba input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
 .ba .tag {
-  position: absolute; top: 12px; padding: 5px 12px; border-radius: 99px;
-  background: rgba(26, 27, 29, .7); font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  position: absolute; top: 0.75rem; padding: 0.3125rem 0.75rem; border-radius: 6.1875rem;
+  background: rgba(26, 27, 29, .7); font-size: 0.75rem; letter-spacing: .1em; text-transform: uppercase;
 }
-.ba .tag.l { left: 12px; }
-.ba .tag.r { right: 12px; }
+.ba .tag.l { left: 0.75rem; }
+.ba .tag.r { right: 0.75rem; }
 
 /* ===== Отзывы ===== */
 blockquote {
-  font-family: var(--serif); font-size: clamp(22px, 3.4vw, 32px); line-height: 1.35;
-  border-left: 2px solid var(--br); padding-left: 22px; margin: 8px 0; max-width: 30em;
+  font-family: var(--serif); font-size: clamp(1.375rem, 3.4vw, 2rem); line-height: 1.35;
+  border-left: 2px solid var(--br); padding-left: 1.375rem; margin: 0.5rem 0; max-width: 30em;
 }
-.who { margin-top: 14px; color: var(--mut); font-size: 15px; }
+.who { margin-top: 0.875rem; color: var(--mut); font-size: 0.9375rem; }
 
 /* ===== Блок «Обсудим ваш ремонт» ===== */
 .cta {
@@ -151,54 +156,54 @@ blockquote {
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   text-align: center;
 }
-.cta p { margin: 0 auto 24px; }
-.cta .btn { display: flex; width: min(100%, 380px); margin: 0 auto; }
+.cta p { margin: 0 auto 1.5rem; }
+.cta .btn { display: flex; width: min(100%, 23.75rem); margin: 0 auto; }
 .cta .ph {
-  display: flex; justify-content: center; align-items: center; gap: 10px;
-  margin-top: 20px; font-size: 24px; font-family: var(--serif);
+  display: flex; justify-content: center; align-items: center; gap: 0.625rem;
+  margin-top: 1.25rem; font-size: 1.5rem; font-family: var(--serif);
 }
-.cta .ph svg { width: 22px; height: 22px; color: var(--br2); }
+.cta .ph svg { width: 1.375rem; height: 1.375rem; color: var(--br2); }
 @media (max-width: 640px) { .cta .btn { width: 100%; } }
 
 /* ===== Подвал ===== */
-.site-footer { padding: 40px 0 28px; }
-.ft { display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: center; }
-.ft nav { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: center; }
-.ft nav a { display: inline-flex; align-items: center; gap: 10px; padding: 10px 0; color: var(--mut); }
+.site-footer { padding: 2.5rem 0 1.75rem; }
+.ft { display: flex; flex-direction: column; gap: 1.25rem; align-items: center; justify-content: center; }
+.ft nav { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: center; }
+.ft nav a { display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0; color: var(--mut); }
 .ft nav a:hover { color: var(--tx); }
-.ft nav svg { width: 22px; height: 22px; flex: none; color: var(--br2); }
-.ft nav .ar { width: 16px; height: 16px; opacity: .7; margin-left: 2px; }
+.ft nav svg { width: 1.375rem; height: 1.375rem; flex: none; color: var(--br2); }
+.ft nav .ar { width: 1rem; height: 1rem; opacity: .7; margin-left: 2px; }
 .ft .brand { flex: none; justify-content: center; }
-.copy { margin: 18px auto 0; font-size: 13px; color: #6f6a60; text-align: center; }
+.copy { margin: 1.125rem auto 0; font-size: 0.8125rem; color: #6f6a60; text-align: center; }
 /* WhatsApp и телефон в подвале показываем только на страницах объектов */
 .xo { display: none !important; }
 [data-page="project"] .xo { display: inline-flex !important; }
 @media (max-width: 640px) {
   .ft { align-items: stretch; }
   .ft nav { flex-direction: column; gap: 0; }
-  .ft nav a { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .ft nav a { padding: 1rem 0; border-bottom: 1px solid var(--line); }
   .ft nav a .ar { margin-left: auto; }
   [data-page="project"] .xo { display: flex !important; }
 }
 
 /* ===== Закреплённая кнопка WhatsApp ===== */
-.wa { position: fixed; z-index: 60; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); will-change: transform; }
-.wa .btn { box-shadow: 0 10px 30px rgba(0, 0, 0, .55); min-width: 290px; }
+.wa { transition: opacity .25s; position: fixed; z-index: 60; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); will-change: transform; }
+.wa .btn { box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, .55); min-width: 18.125rem; }
 @media (max-width: 640px) {
-  .wa { left: max(12px, env(safe-area-inset-left)); right: max(12px, env(safe-area-inset-right)); }
-  .wa .btn { width: 100%; min-height: 56px; }
+  .wa { left: max(0.75rem, env(safe-area-inset-left)); right: max(0.75rem, env(safe-area-inset-right)); }
+  .wa .btn { width: 100%; min-height: 3.5rem; }
 }
 
 /* Плашка «Номер скопирован» */
 .toast {
-  position: fixed; left: 50%; bottom: 96px; transform: translate(-50%, 10px); z-index: 120;
+  position: fixed; left: 50%; bottom: 6rem; transform: translate(-50%, 0.625rem); z-index: 120;
   background: var(--bg3); border: 1px solid var(--br); color: var(--tx);
-  padding: 12px 20px; border-radius: 12px; opacity: 0; pointer-events: none; transition: .2s;
+  padding: 0.75rem 1.25rem; border-radius: 0.75rem; opacity: 0; pointer-events: none; transition: .2s;
 }
 .toast.on { opacity: 1; transform: translate(-50%, 0); }
 
 /* Плавное появление блоков при прокрутке */
-html.js .rvl { opacity: 0; transform: translateY(18px); transition: .7s; }
+html.js .rvl { opacity: 0; transform: translateY(1.125rem); transition: .7s; }
 html.js .rvl.in { opacity: 1; transform: none; }
 
 /* Если у человека в системе отключены анимации */

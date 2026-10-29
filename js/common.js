@@ -32,7 +32,7 @@
   var FLAGS = {
     ru: '<svg viewBox="0 0 30 30"><rect width="30" height="10" fill="#fff"/><rect y="10" width="30" height="10" fill="#1c57a5"/><rect y="20" width="30" height="10" fill="#d52b1e"/></svg>',
     en: '<svg viewBox="0 0 30 30"><rect width="30" height="30" fill="#1f3a7a"/><path d="M0 0L30 30M30 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L30 30M30 0L0 30" stroke="#c8102e" stroke-width="2"/><path d="M15 0V30M0 15H30" stroke="#fff" stroke-width="10"/><path d="M15 0V30M0 15H30" stroke="#c8102e" stroke-width="6"/></svg>',
-    el: '<svg viewBox="0 0 30 30"><rect width="30" height="30" fill="#fff"/><path d="M8 11c3-2 6-1 9 0s5 2 6 4c-2 3-6 4-10 3s-6-4-5-7z" fill="#d57800"/><path d="M8 23q7 3 14 0" stroke="#4e7a3a" stroke-width="1.6" fill="none"/></svg>'
+    el: '<svg viewBox="0 0 30 30"><rect width="30" height="30" fill="#fff"/><path d="M5.5 15.5c1.6-2 4-2.2 6-2.7 1.8-.5 3-2.2 5.2-2.4 2.2-.2 3.4-1.8 6.3-4.2l.2 2.2c-1 1.7-1.8 2.8-2.6 4.1-.7 2.8-2.8 4.8-6 5.3-3.6.6-7.5-.2-9.1-2.3z" fill="#d57800"/><path d="M8.5 21.5q6.5 4.8 13 0M10 23.6l-1.8.2M12.3 24.8l-1.4 1.2M15 25.2v1.8M17.7 24.8l1.4 1.2M20 23.6l1.8.2" stroke="#4e7a3a" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>'
   };
 
   // ---------- Язык ----------
@@ -236,10 +236,32 @@
   var realBtn = document.querySelector('#contacts .btn');
   if (realBtn) {
     realBtn.style.opacity = 0; // вместо неё на экране всегда одна кнопка: закреплённая
+    var touch = window.matchMedia('(hover: none)').matches;
+    var docked = false, far = false;
     Site.onScroll(function () {
+      // На телефоне кнопку не двигаем (при скролле пальцем скрипт не успевает за страницей и кнопку трясёт):
+      // закреплённая просто плавно исчезает, а на её месте появляется кнопка из блока
+      if (touch) {
+        var rr = realBtn.getBoundingClientRect();
+        var near = rr.top + rr.height / 2 < innerHeight - 40;
+        if (near !== docked) {
+          docked = near;
+          waEl.style.opacity = near ? 0 : 1;
+          waEl.style.pointerEvents = near ? 'none' : '';
+          realBtn.style.opacity = near ? 1 : 0;
+        }
+        return;
+      }
       var sb = waEl.firstElementChild;
-      sb.style.width = '';
       var r = realBtn.getBoundingClientRect();
+      // пока блок с кнопкой далеко внизу, ничего не пересчитываем: кнопка закреплена чисто стилями
+      if (r.top > innerHeight + 300) {
+        if (!far) { far = true; sb.style.width = ''; sb.querySelector('span').style.paddingLeft = ''; waEl.style.transform = ''; }
+        return;
+      }
+      far = false;
+      sb.style.width = '';
+      r = realBtn.getBoundingClientRect();
       var sW = sb.offsetWidth;
       var sCY = waEl.offsetTop + waEl.offsetHeight / 2;
       var sCX = waEl.offsetLeft + waEl.offsetWidth / 2;

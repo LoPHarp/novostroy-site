@@ -2,8 +2,8 @@
 
 /* Первый экран: картинка закреплена, следующий блок наезжает на неё */
 .hero {
-  position: sticky; top: 64px;
-  height: calc(100svh - 64px - 100px); min-height: 460px;
+  position: sticky; top: 4rem;
+  height: calc(100svh - 4rem - 6.25rem); min-height: 28.75rem;
   display: flex; align-items: flex-end; overflow: hidden;
   --p: 0; /* 0..1, меняется скриптом при прокрутке */
 }
@@ -22,55 +22,55 @@
   background: #1a1b1d; opacity: calc(var(--p) * .45);
 }
 .hero .wrap {
-  position: relative; z-index: 2; padding-bottom: 40px; width: 100%;
-  transform: translateY(calc(var(--p) * -70px));
+  position: relative; z-index: 2; padding-bottom: 2.5rem; width: 100%;
+  transform: translateY(calc(var(--p) * -4.375rem));
   opacity: calc(1 - var(--p) * 1.4);
 }
-.hero h1 { font-size: clamp(40px, 8vw, 84px); margin-bottom: 16px; }
-.hero p { color: #d8cfc0; font-size: 19px; }
+.hero h1 { font-size: clamp(2.5rem, 8vw, 5.25rem); margin-bottom: 1rem; }
+.hero p { color: #d8cfc0; font-size: 1.1875rem; }
 .sheet {
   position: relative; z-index: 3; background: var(--bg);
-  box-shadow: 0 -18px 40px rgba(0, 0, 0, .3); padding-top: 20px;
+  box-shadow: 0 -1.125rem 2.5rem rgba(0, 0, 0, .3); padding-top: 1.25rem;
 }
 @media (max-width: 640px) {
-  .hero { height: calc(100svh - 64px - 165px); }
-  .hero .wrap { padding-bottom: 96px; }
+  .hero { height: calc(100svh - 4rem - 10.3125rem); }
+  .hero .wrap { padding-bottom: 6rem; }
 }
 
 /* О компании */
-.two { display: grid; gap: 28px; }
-@media (min-width: 860px) { .two { grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; } }
-.cap { margin-top: 16px; }
+.two { display: grid; gap: 1.75rem; }
+@media (min-width: 860px) { .two { grid-template-columns: 1fr 1.2fr; gap: 3.5rem; align-items: start; } }
+.cap { margin-top: 1rem; }
 
 /* Как работаем */
 .acc { border-top: 1px solid var(--line); }
 .st { border-bottom: 1px solid var(--line); }
 .sh {
-  display: flex; gap: 18px; align-items: center; width: 100%; text-align: left;
-  padding: 22px 0; font-family: var(--serif); font-size: clamp(20px, 3vw, 26px); min-height: 64px;
+  display: flex; gap: 1.125rem; align-items: center; width: 100%; text-align: left;
+  padding: 1.375rem 0; font-family: var(--serif); font-size: clamp(1.25rem, 3vw, 1.625rem); min-height: 4rem;
 }
-.sh b { font: 600 14px var(--sans); color: var(--br2); letter-spacing: .1em; min-width: 28px; }
+.sh b { font: 600 0.875rem var(--sans); color: var(--br2); letter-spacing: .1em; min-width: 1.75rem; }
 .sh::after {
   content: "+"; margin-left: auto; color: var(--br2);
-  font-size: 28px; font-family: var(--sans); font-weight: 300; transition: transform .4s;
+  font-size: 1.75rem; font-family: var(--sans); font-weight: 300; transition: transform .4s;
 }
 .st.on:not(.c) .sh::after { transform: rotate(45deg); }
 .sb { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .4s ease; }
 .st.c .sb { grid-template-rows: 0fr; }
 .sb > div { overflow: hidden; }
-.sb p { padding: 0 0 22px 46px; }
+.sb p { padding: 0 0 1.375rem 2.875rem; }
 html.js .sb p {
-  clip-path: inset(0 0 100% 0); opacity: 0; transform: translateY(-10px);
+  clip-path: inset(0 0 100% 0); opacity: 0; transform: translateY(-0.625rem);
   transition: clip-path .5s ease, opacity .4s, transform .5s;
 }
 html.js .st.on .sb p { clip-path: inset(0); opacity: 1; transform: none; }
-.note { margin-top: 18px; color: var(--tx); }
+.note { margin-top: 1.125rem; color: var(--tx); }
 
 /* Команда */
 .team {
   aspect-ratio: 16 / 9; border: 1px dashed #5a5a5e; border-radius: var(--r);
-  display: grid; place-content: center; text-align: center; color: var(--mut); padding: 20px;
-  background: repeating-linear-gradient(45deg, var(--bg2), var(--bg2) 14px, var(--bg) 14px, var(--bg) 28px);
+  display: grid; place-content: center; text-align: center; color: var(--mut); padding: 1.25rem;
+  background: repeating-linear-gradient(45deg, var(--bg2), var(--bg2) 0.875rem, var(--bg) 0.875rem, var(--bg) 1.75rem);
 }
 
 @media (prefers-reduced-motion: reduce) {

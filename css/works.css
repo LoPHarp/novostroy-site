@@ -1,0 +1,16 @@
+/* ===== Страница «Работы и отзывы» ===== */
+.page-h { padding: 24px 0 8px; }
+.page-h h1 { font-size: clamp(34px, 6vw, 60px); }
+.card { margin: 34px 0 56px; }
+.ct { display: flex; align-items: center; gap: 16px; margin-top: 16px; padding: 10px 0; }
+.ct h2 { font-size: clamp(26px, 3.6vw, 34px); margin: 0; }
+.ct p { margin: 2px 0 0; }
+.ct .go {
+  margin-left: auto; flex: none; width: 50px; height: 50px; border-radius: 50%;
+  border: 1px solid var(--br); display: grid; place-content: center; color: var(--br2); transition: .2s;
+}
+.ct:hover .go { background: var(--br); color: #1a1208; }
+.go svg { width: 26px; height: 26px; }
+.card blockquote { font-size: clamp(18px, 2.6vw, 24px); margin-top: 14px; }
+.org { padding: 44px 0 56px; border-top: 1px solid var(--line); }
+.org h2 { margin-bottom: 8px; }

@@ -1,0 +1,208 @@
+/* ===== Общие стили для всех страниц ===== */
+
+/* Цвета и шрифты. Меняются в одном месте */
+:root {
+  --bg: #1a1b1d;
+  --bg2: #222326;
+  --bg3: #2a2b2f;
+  --line: #37383c;
+  --tx: #efe6d8;
+  --mut: #a9a193;
+  --br: #b8895a;
+  --br2: #d3a977;
+  --r: 14px;
+  --serif: 'Noto Serif Display', 'Noto Serif', Georgia, serif;
+  --sans: 'Manrope', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font: 400 17px/1.6 var(--sans);
+  overflow-x: hidden;
+  animation: page-in .16s ease-out;
+}
+@keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 640px) { body { padding-bottom: 84px; } }
+
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.15; letter-spacing: -.01em; }
+h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 18px; }
+section { padding: 56px 0; }
+p { color: var(--mut); max-width: 62ch; }
+p + p { margin-top: 12px; }
+.eyebrow {
+  font-size: clamp(19px, 2.6vw, 24px);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--br2);
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+/* ===== Шапка ===== */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(26, 27, 29, .92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.hd { display: flex; align-items: center; gap: 14px; height: 64px; }
+.brand {
+  display: flex; align-items: center; gap: 11px;
+  font-family: var(--serif); font-size: 17px; letter-spacing: .06em; line-height: 1.1;
+  flex: 1;
+}
+.brand .lg { height: 38px; width: auto; }
+.brand small {
+  display: block; font-family: var(--sans); font-size: 10px; letter-spacing: .3em; color: var(--br2);
+}
+nav.d { display: none; gap: 26px; font-size: 15px; color: var(--mut); }
+nav.d a:hover, nav.d a.on { color: var(--tx); }
+.fl { display: flex; gap: 6px; }
+.fl button {
+  width: 30px; height: 30px; border-radius: 50%; overflow: hidden;
+  opacity: .45; border: 2px solid transparent; padding: 0;
+}
+.fl button.on { opacity: 1; border-color: var(--br); }
+.fl svg { width: 100%; height: 100%; display: block; }
+.burger { width: 44px; height: 44px; display: grid; place-content: center; gap: 5px; }
+.burger i { display: block; width: 22px; height: 2px; background: var(--tx); }
+.menu { display: none; border-top: 1px solid var(--line); background: var(--bg); }
+.menu.open { display: block; }
+.menu a { display: block; padding: 16px 20px; border-bottom: 1px solid var(--line); font-size: 18px; }
+@media (min-width: 860px) {
+  nav.d { display: flex; }
+  .burger { display: none; }
+  .menu { display: none !important; }
+}
+
+/* ===== Кнопки и ссылки ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: 14px;
+  min-height: 58px; padding: 0 22px; border-radius: 12px;
+  background: linear-gradient(115deg, #6e5233 0%, #a07b4b 55%, #7d5e39 100%);
+  border: 1px solid rgba(235, 200, 150, .28);
+  color: #fff; font-weight: 600; font-size: 17px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+  transition: filter .2s;
+}
+.btn span { flex: 1; }
+.btn .ar { width: 22px; height: 22px; opacity: .9; transition: transform .2s; }
+.btn .wi { width: 26px; height: 26px; flex: none; }
+.btn:hover { filter: brightness(1.08); }
+.btn:hover .ar { transform: translateX(4px); }
+.btn.bk { display: flex; width: min(100%, 380px); margin: 0 auto; padding-right: 50px; }
+.btn.bk span { text-align: center; }
+.btn.bk:hover .ar { transform: translateX(-4px); }
+
+.link {
+  color: var(--br2); font-weight: 600; font-size: 18px;
+  display: inline-flex; align-items: center; gap: 10px; padding: 12px 0;
+}
+.link svg { width: 26px; height: 26px; transition: transform .2s; }
+.link:hover svg { transform: translateX(4px); }
+.link:hover { text-decoration: underline; }
+
+.back {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 20px 0 0; color: var(--br2); font-weight: 600; font-size: 18px;
+}
+.back svg { width: 26px; height: 26px; transition: transform .2s; }
+.back:hover svg { transform: translateX(-4px); }
+
+/* ===== Слайдер «до / после» ===== */
+.ba {
+  position: relative; border-radius: var(--r); overflow: hidden;
+  aspect-ratio: 16 / 10; background: var(--bg3);
+  --pos: 50%; user-select: none; touch-action: pan-y;
+}
+.ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ba .b { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.ba .ln { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; background: var(--br2); transform: translateX(-1px); }
+.ba .kn {
+  position: absolute; top: 50%; left: var(--pos); width: 44px; height: 44px; margin: -22px 0 0 -22px;
+  border-radius: 50%; background: var(--br); color: #1a1208;
+  display: grid; place-content: center; font-weight: 700; pointer-events: none;
+}
+.ba input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.ba .tag {
+  position: absolute; top: 12px; padding: 5px 12px; border-radius: 99px;
+  background: rgba(26, 27, 29, .7); font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+}
+.ba .tag.l { left: 12px; }
+.ba .tag.r { right: 12px; }
+
+/* ===== Отзывы ===== */
+blockquote {
+  font-family: var(--serif); font-size: clamp(22px, 3.4vw, 32px); line-height: 1.35;
+  border-left: 2px solid var(--br); padding-left: 22px; margin: 8px 0; max-width: 30em;
+}
+.who { margin-top: 14px; color: var(--mut); font-size: 15px; }
+
+/* ===== Блок «Обсудим ваш ремонт» ===== */
+.cta {
+  background: var(--bg2);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.cta p { margin: 0 auto 24px; }
+.cta .btn { display: flex; width: min(100%, 380px); margin: 0 auto; }
+.cta .ph {
+  display: flex; justify-content: center; align-items: center; gap: 10px;
+  margin-top: 20px; font-size: 24px; font-family: var(--serif);
+}
+.cta .ph svg { width: 22px; height: 22px; color: var(--br2); }
+@media (max-width: 640px) { .cta .btn { width: 100%; } }
+
+/* ===== Подвал ===== */
+.site-footer { padding: 40px 0 28px; }
+.ft { display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: center; }
+.ft nav { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: center; }
+.ft nav a { display: inline-flex; align-items: center; gap: 10px; padding: 10px 0; color: var(--mut); }
+.ft nav a:hover { color: var(--tx); }
+.ft nav svg { width: 22px; height: 22px; flex: none; color: var(--br2); }
+.ft nav .ar { width: 16px; height: 16px; opacity: .7; margin-left: 2px; }
+.ft .brand { flex: none; justify-content: center; }
+.copy { margin: 18px auto 0; font-size: 13px; color: #6f6a60; text-align: center; }
+/* WhatsApp и телефон в подвале показываем только на страницах объектов */
+.xo { display: none !important; }
+[data-page="project"] .xo { display: inline-flex !important; }
+@media (max-width: 640px) {
+  .ft { align-items: stretch; }
+  .ft nav { flex-direction: column; gap: 0; }
+  .ft nav a { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .ft nav a .ar { margin-left: auto; }
+  [data-page="project"] .xo { display: flex !important; }
+}
+
+/* ===== Закреплённая кнопка WhatsApp ===== */
+.wa { position: fixed; z-index: 60; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); will-change: transform; }
+.wa .btn { box-shadow: 0 10px 30px rgba(0, 0, 0, .55); min-width: 290px; }
+@media (max-width: 640px) {
+  .wa { left: max(12px, env(safe-area-inset-left)); right: max(12px, env(safe-area-inset-right)); }
+  .wa .btn { width: 100%; min-height: 56px; }
+}
+
+/* Плашка «Номер скопирован» */
+.toast {
+  position: fixed; left: 50%; bottom: 96px; transform: translate(-50%, 10px); z-index: 120;
+  background: var(--bg3); border: 1px solid var(--br); color: var(--tx);
+  padding: 12px 20px; border-radius: 12px; opacity: 0; pointer-events: none; transition: .2s;
+}
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+/* Плавное появление блоков при прокрутке */
+html.js .rvl { opacity: 0; transform: translateY(18px); transition: .7s; }
+html.js .rvl.in { opacity: 1; transform: none; }
+
+/* Если у человека в системе отключены анимации */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; animation: none !important; }
+  html.js .rvl { opacity: 1; transform: none; }
+}

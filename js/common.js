@@ -129,6 +129,7 @@
   });
   var menu = document.querySelector('.menu');
   document.querySelector('.burger').onclick = function () { menu.classList.toggle('open'); };
+  $$('.menu a').forEach(function (a) { a.addEventListener('click', function () { menu.classList.remove('open'); }); });
   $$('nav.d a[data-n]').forEach(function (a) {
     var on = (page === 'home' && a.dataset.n === 'home') || (page !== 'home' && a.dataset.n === 'works');
     a.classList.toggle('on', on);

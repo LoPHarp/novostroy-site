@@ -29,25 +29,22 @@
     fb: svg('<circle cx="12" cy="12" r="9"/><path d="M11.1 17.5v-6.2m-2.2 0h4.6M11.1 11.3V9.4c0-1.1.7-1.8 1.8-1.8h.9"/>'),
     tg: svg('<path d="M21 4L3 11l6 2 2 6 3-4 5 4L21 4z"/><path d="M9 13l12-9"/>')
   };
-  var FLAGS = {
-    ru: '<svg viewBox="0 0 30 30"><rect width="30" height="10" fill="#fff"/><rect y="10" width="30" height="10" fill="#1c57a5"/><rect y="20" width="30" height="10" fill="#d52b1e"/></svg>',
-    en: '<svg viewBox="0 0 30 30"><rect width="30" height="30" fill="#1f3a7a"/><path d="M0 0L30 30M30 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L30 30M30 0L0 30" stroke="#c8102e" stroke-width="2"/><path d="M15 0V30M0 15H30" stroke="#fff" stroke-width="10"/><path d="M15 0V30M0 15H30" stroke="#c8102e" stroke-width="6"/></svg>',
-    el: '<svg viewBox="0 0 30 30"><rect width="30" height="30" fill="#fff"/><path d="M5.5 15.5c1.6-2 4-2.2 6-2.7 1.8-.5 3-2.2 5.2-2.4 2.2-.2 3.4-1.8 6.3-4.2l.2 2.2c-1 1.7-1.8 2.8-2.6 4.1-.7 2.8-2.8 4.8-6 5.3-3.6.6-7.5-.2-9.1-2.3z" fill="#d57800"/><path d="M8.5 21.5q6.5 4.8 13 0M10 23.6l-1.8.2M12.3 24.8l-1.4 1.2M15 25.2v1.8M17.7 24.8l1.4 1.2M20 23.6l1.8.2" stroke="#4e7a3a" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>'
-  };
+  var LANG_BTNS = [['ru', 'RU'], ['ua', 'UA'], ['en', 'EN']]; // порядок и подписи переключателя языков
 
   // ---------- Язык ----------
   var lang = 'ru';
   try {
     lang = localStorage.getItem('lang') ||
-      (/^el/.test(navigator.language) ? 'el' : /^ru|^uk|^be/.test(navigator.language) ? 'ru' : 'en');
+      (/^uk/.test(navigator.language) ? 'ua' : /^ru|^be/.test(navigator.language) ? 'ru' : 'en');
   } catch (e) {}
+  if (!LANGS[lang]) lang = 'ru';
   Site.t = function (key) { return (LANGS[lang] && LANGS[lang][key]) || ''; };
   Site.lang = function () { return lang; };
   Site.setLang = function (l, root) {
     if (!root) {
       lang = l;
       try { localStorage.setItem('lang', l); } catch (e) {}
-      document.documentElement.lang = l;
+      document.documentElement.lang = l === 'ua' ? 'uk' : l;
       var tk = document.body.dataset.title;
       if (tk && LANGS[l][tk]) document.title = LANGS[l][tk];
       $$('.fl button').forEach(function (b) { b.classList.toggle('on', b.dataset.l === l); });
@@ -62,7 +59,7 @@
   var contactsHref = hasCta ? '#contacts' : 'works.html#contacts';
   var headerHtml =
     '<header class="site-header"><div class="wrap hd">' +
-    '<a class="brand" href="index.html"><img class="lg" src="img/logo-mark.png" width="30" height="38" alt=""><span>NOVOSTROY<small>CONSTRUCTION</small></span></a>' +
+    '<a class="brand" href="index.html"><span>NOVOSTROY<small>CONSTRUCTION</small></span></a>' +
     '<nav class="d"><a href="index.html" data-n="home" data-t="nav_home"></a><a href="works.html" data-n="works" data-t="nav_works"></a><a href="' + contactsHref + '" data-t="nav_contacts"></a></nav>' +
     '<div class="fl"></div>' +
     '<button class="burger" aria-label="Menu"><i></i><i></i><i></i></button></div>' +
@@ -76,7 +73,7 @@
     '<footer class="site-footer"><div class="wrap"><div class="ft"><nav>' +
     '<a class="xo wal-link" href="#"></a><a class="xo tl" href="#"></a>' +
     '<a class="soc" data-k="instagram" href="#"></a><a class="soc" data-k="facebook" href="#"></a><a class="soc" data-k="telegram" href="#"></a>' +
-    '</nav><a class="brand" href="index.html"><img class="lg" src="img/logo-mark.png" width="30" height="38" alt="" loading="lazy"><span>NOVOSTROY<small>CONSTRUCTION</small></span></a></div>' +
+    '</nav><a class="brand" href="index.html"><span>NOVOSTROY<small>CONSTRUCTION</small></span></a></div>' +
     '<p class="copy" data-t="tg_note"></p></div></footer>';
 
   function mount(id, html) {
@@ -111,20 +108,20 @@
     a.href = 'tel:+' + digits;
     a.innerHTML = IC.phone + '<span>' + CFG.phone + '</span>';
   });
-  var socials = { instagram: ['Instagram', IC.ig], facebook: ['Facebook', IC.fb], telegram: ['Telegram · МАСТЕР ИЗ ЛИМАССОЛА', IC.tg] };
+  var socials = { instagram: ['Instagram', IC.ig], facebook: ['Facebook', IC.fb], telegram: [null, IC.tg] };
   $$('.soc').forEach(function (a) {
     var k = a.dataset.k, url = CFG[k];
-    a.innerHTML = socials[k][1] + '<span>' + socials[k][0] + '</span>' + IC.up;
+    a.innerHTML = socials[k][1] + (socials[k][0] ? '<span>' + socials[k][0] + '</span>' : '<span data-t="tg_label"></span>') + IC.up;
     if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; }
     else a.removeAttribute('href'); // ссылки пока нет
   });
 
-  // Флаги и меню
+  // Переключатель языков: RU / UA / EN
   var fl = document.querySelector('.fl');
-  ['ru', 'en', 'el'].forEach(function (l) {
+  LANG_BTNS.forEach(function (x) {
     var b = document.createElement('button');
-    b.dataset.l = l; b.setAttribute('aria-label', l); b.innerHTML = FLAGS[l];
-    b.onclick = function () { Site.setLang(l); };
+    b.dataset.l = x[0]; b.textContent = x[1]; b.setAttribute('aria-label', x[1]);
+    b.onclick = function () { Site.setLang(x[0]); };
     fl.appendChild(b);
   });
   var menu = document.querySelector('.menu');
@@ -222,6 +219,107 @@
   }, { threshold: .1 }) : null;
   $$('.rvl').forEach(function (e) { if (revealObserver) revealObserver.observe(e); else e.classList.add('in'); });
 
+
+
+  // ---------- Смена картинок на первом экране ----------
+  var hs = document.querySelector('[data-hs]');
+  if (hs && hs.children.length > 1 && !Site.reduceMotion) {
+    var hsl = hs.children, hi = 0, htimer = null;
+    var next = function () { hsl[hi].classList.remove('on'); hi = (hi + 1) % hsl.length; hsl[hi].classList.add('on'); };
+    var hstart = function () { if (!htimer) htimer = setInterval(next, 4500); };
+    var hstop = function () { clearInterval(htimer); htimer = null; };
+    hstart();
+    document.addEventListener('visibilitychange', function () { document.hidden ? hstop() : hstart(); });
+  }
+
+  // ---------- Лента фото ----------
+  // Сама плывёт справа налево. Пока её держат или листают, стоит; через 2 секунды после последнего касания плывёт дальше.
+  Site.dragged = 0;
+  $$('[data-mq]').forEach(function (el) {
+    var track = el.firstElementChild;
+    Array.prototype.slice.call(track.children).forEach(function (c) {
+      var k = c.cloneNode(true); k.setAttribute('data-clone', ''); k.setAttribute('aria-hidden', 'true'); track.appendChild(k);
+    });
+    var visible = false, held = false, pos = 0, last = 0, lastInput = 0, lastSet = -1;
+    var touched = function () { lastInput = Date.now(); };
+    ['touchstart', 'pointerdown'].forEach(function (ev) { el.addEventListener(ev, function () { held = true; touched(); }, { passive: true }); });
+    ['touchend', 'touchcancel', 'pointerup', 'pointercancel'].forEach(function (ev) { window.addEventListener(ev, function () { held = false; touched(); }, { passive: true }); });
+    el.addEventListener('wheel', touched, { passive: true });
+    el.addEventListener('scroll', function () {
+      // прокрутку, которую сделали мы сами, не считаем касанием (это и пальцы, и инерция после броска)
+      if (Math.abs(el.scrollLeft - lastSet) > 2) touched();
+      // бесконечная петля и при ручной прокрутке: дошли до конца копии, перескакиваем на то же место в начале
+      var half = track.scrollWidth / 2;
+      if (half > 0 && Date.now() - lastInput < 400) {
+        if (el.scrollLeft >= half) { el.scrollLeft -= half; pos = el.scrollLeft; lastSet = pos; }
+        else if (el.scrollLeft <= 0) { el.scrollLeft += half; pos = el.scrollLeft; lastSet = pos; }
+      }
+    }, { passive: true });
+    // перетаскивание мышкой (на телефоне лента листается пальцем сама)
+    var sx = null, sl = 0, moved = 0;
+    el.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      sx = e.clientX; sl = el.scrollLeft; moved = 0; el.classList.add('drag');
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (sx === null) return;
+      var dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx));
+      el.scrollLeft = sl - dx; touched();
+    });
+    window.addEventListener('pointerup', function () {
+      if (sx === null) return;
+      sx = null; el.classList.remove('drag');
+      if (moved > 6) Site.dragged = Date.now();
+    });
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(el);
+    } else visible = true;
+    var idle = true; // true: сейчас стоим, при следующем запуске берём положение из ленты
+    function tick(t) {
+      var run = visible && !held && Date.now() - lastInput > 2000;
+      if (run) {
+        if (idle) { pos = el.scrollLeft; idle = false; }
+        else if (last) {
+          var half = track.scrollWidth / 2;
+          pos += Math.min(60, t - last) * 0.035; // ~35 px в секунду
+          if (pos >= half) pos -= half;
+          lastSet = pos; el.scrollLeft = pos;
+        }
+        last = t;
+      } else { idle = true; last = 0; }
+      requestAnimationFrame(tick);
+    }
+    if (!Site.reduceMotion) requestAnimationFrame(tick);
+  });
+
+  // ---------- Видео ----------
+  // Играют без звука по кругу, пока видны на экране; вне экрана стоят (экономим трафик и батарею).
+  var videos = $$('video[data-src]');
+  if (videos.length) {
+    var vo = window.IntersectionObserver ? new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) {
+          if (!v.getAttribute('src')) v.src = v.dataset.src;
+          if (!Site.reduceMotion && !v.dataset.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        } else v.pause();
+      });
+    }, { threshold: .35 }) : null;
+    videos.forEach(function (v) {
+      if (Site.reduceMotion) v.controls = true;
+      if (vo) vo.observe(v); else v.src = v.dataset.src;
+      // нажатие: поставить на паузу или продолжить
+      v.parentNode.addEventListener('click', function () {
+        if (v.paused) { v.dataset.paused = ''; v.play(); } else { v.dataset.paused = '1'; v.pause(); }
+      });
+    });
+  }
+
+  // Ссылка на Telegram-канал в конце страницы работ
+  $$('a.tgl').forEach(function (a) {
+    if (CFG.telegram) { a.href = CFG.telegram; a.target = '_blank'; a.rel = 'noopener'; } else a.removeAttribute('href');
+  });
+
   // ---------- Один общий обработчик прокрутки (не чаще раза за кадр) ----------
   var scrollFns = [];
   Site.onScroll = function (fn) { scrollFns.push(fn); fn(); };
@@ -233,55 +331,90 @@
   }, { passive: true });
   window.addEventListener('resize', function () { scrollFns.forEach(function (f) { f(); }); });
 
-  // ---------- Закреплённая кнопка «переезжает» в блок «Обсудим ваш ремонт» ----------
-  var realBtn = document.querySelector('#contacts .btn');
-  if (realBtn) {
-    realBtn.style.opacity = 0; // вместо неё на экране всегда одна кнопка: закреплённая
+  // ---------- Закреплённая кнопка WhatsApp ----------
+  // Кнопка одна и ходит за посетителем: на первом экране стоит на месте кнопки героя,
+  // при прокрутке уезжает вниз экрана и закрепляется, а в конце страницы «садится» на кнопку блока контактов.
+  // Настоящие кнопки (в герое и в контактах) всегда прозрачные: на их месте на экране лежит закреплённая.
+  var heroBtn = document.querySelector('.hero .hb');
+  var ctaBtn = document.querySelector('#contacts .btn');
+  if (heroBtn || ctaBtn) {
     var touch = window.matchMedia('(hover: none)').matches;
-    var docked = false, far = false;
-    Site.onScroll(function () {
-      // На телефоне кнопку не двигаем (при скролле пальцем скрипт не успевает за страницей и кнопку трясёт):
-      // закреплённая просто плавно исчезает, а на её месте появляется кнопка из блока
-      if (touch) {
-        var rr = realBtn.getBoundingClientRect();
-        var near = rr.top + rr.height / 2 < innerHeight - 40;
-        if (near !== docked) {
-          docked = near;
-          waEl.style.opacity = near ? 0 : 1;
-          waEl.style.pointerEvents = near ? 'none' : '';
-          realBtn.style.opacity = near ? 1 : 0;
-        }
-        return;
-      }
-      var sb = waEl.firstElementChild;
-      var r = realBtn.getBoundingClientRect();
-      // пока блок с кнопкой далеко внизу, ничего не пересчитываем: кнопка закреплена чисто стилями
-      if (r.top > innerHeight + 300) {
-        if (!far) { far = true; sb.style.width = ''; sb.querySelector('span').style.paddingLeft = ''; waEl.style.transform = ''; }
-        return;
-      }
-      far = false;
+    var sb = waEl.firstElementChild;
+    var sbSpan = sb.querySelector('span');
+    [heroBtn, ctaBtn].forEach(function (b) { if (b) b.style.opacity = 0; });
+    var clamp01 = function (x) { return Math.max(0, Math.min(1, x)); };
+    var smooth = function (p) { return p * p * (3 - 2 * p); };
+    var idle = false; // закреплённая кнопка стоит на своём обычном месте, ничего не считаем
+
+    function resetDock() {
+      if (idle) return;
+      idle = true;
+      sb.style.width = ''; sbSpan.style.paddingLeft = ''; waEl.style.transform = '';
+    }
+
+    // Насколько кнопка «пристыкована» к целевой кнопке: 0 = свободно, 1 = точно поверх неё
+    function dockTo(target, p) {
+      idle = false;
       sb.style.width = '';
-      r = realBtn.getBoundingClientRect();
+      var r = target.getBoundingClientRect();
       var sW = sb.offsetWidth;
       var sCY = waEl.offsetTop + waEl.offsetHeight / 2;
       var sCX = waEl.offsetLeft + waEl.offsetWidth / 2;
       var cY = r.top + r.height / 2, cX = r.left + r.width / 2;
-      var p = 1 - Math.max(0, Math.min(1, (cY - sCY) / 260)); // 0 = далеко, 1 = на месте
-      p = p * p * (3 - 2 * p);
       var gw = (r.width - sW) * p;
-      if (p > 0) sb.style.width = (sW + gw).toFixed(1) + 'px';
+      sb.style.width = (sW + gw).toFixed(1) + 'px';
       // надпись плавно уезжает в центр кнопки
-      var sp = sb.querySelector('span');
-      sp.style.paddingLeft = '0px';
-      if (p > 0) {
-        var rg = document.createRange();
-        rg.selectNodeContents(sp);
-        var tw = rg.getBoundingClientRect().width;
-        sp.style.paddingLeft = Math.max(0, (sp.offsetWidth - tw) / 2 * p).toFixed(1) + 'px';
+      sbSpan.style.paddingLeft = '0px';
+      var rg = document.createRange();
+      rg.selectNodeContents(sbSpan);
+      var tw = rg.getBoundingClientRect().width;
+      sbSpan.style.paddingLeft = Math.max(0, (sbSpan.offsetWidth - tw) / 2 * p).toFixed(1) + 'px';
+      waEl.style.transform = 'translate(' + ((cX - sCX) * p + (waEl.style.left ? 0 : gw / 2)).toFixed(1) + 'px,' +
+        ((cY - sCY) * p).toFixed(1) + 'px)';
+    }
+
+    Site.onScroll(function () {
+      var heroNear = heroBtn ? scrollY < innerHeight * .12 : false;
+
+      if (touch) {
+        // На телефоне кнопку не двигаем (при прокрутке пальцем скрипт не успевает за страницей, и кнопку трясёт):
+        // закреплённая плавно гаснет, а на её месте проявляется настоящая кнопка
+        var ctaNear = false;
+        if (ctaBtn) {
+          var rr = ctaBtn.getBoundingClientRect();
+          ctaNear = rr.top + rr.height / 2 < innerHeight - 40;
+        }
+        var hide = heroNear || ctaNear;
+        waEl.style.opacity = hide ? 0 : 1;
+        waEl.style.pointerEvents = hide ? 'none' : '';
+        if (heroBtn) heroBtn.style.opacity = heroNear ? 1 : 0;
+        if (ctaBtn) ctaBtn.style.opacity = ctaNear && !heroNear ? 1 : 0;
+        return;
       }
-      waEl.style.transform = 'translate(' + ((cX - sCX) * p + (waEl.style.left ? 0 : gw / 2)).toFixed(1) + 'px,' + ((cY - sCY) * p).toFixed(1) + 'px)';
+
+      // У верхнего края страницы видна кнопка героя. Стоит прокрутить, она плавно гаснет,
+      // а закреплённая плавно появляется внизу справа (без переезда через весь экран)
+      if (heroBtn) {
+        heroBtn.style.opacity = heroNear ? 1 : 0;
+        waEl.style.opacity = heroNear ? 0 : 1;
+        waEl.style.pointerEvents = heroNear ? 'none' : '';
+        if (heroNear) { resetDock(); return; }
+      }
+      var target = null, p = 0;
+      if (ctaBtn) {
+        var r = ctaBtn.getBoundingClientRect();
+        if (r.top <= innerHeight + 300) {
+          var sCY = waEl.offsetTop + waEl.offsetHeight / 2;
+          var pc = smooth(1 - clamp01((r.top + r.height / 2 - sCY) / 260));
+          if (pc > p) { target = ctaBtn; p = pc; }
+        }
+      }
+      if (!target || p <= 0) { resetDock(); return; }
+      dockTo(target, p);
     });
+    // шрифты и картинки меняют размеры блоков: пересчитываем положение после загрузки
+    window.addEventListener('load', function () { scrollFns.forEach(function (f) { f(); }); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { scrollFns.forEach(function (f) { f(); }); });
   }
 
   // ---------- Старт ----------

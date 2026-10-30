@@ -11,6 +11,6 @@
 }
 .ct:hover .go { background: var(--br); color: #1a1208; }
 .go svg { width: 1.625rem; height: 1.625rem; }
-.card blockquote { font-size: clamp(1.125rem, 2.6vw, 1.5rem); margin-top: 0.875rem; }
+.card blockquote { font-size: clamp(1rem, 2vw, 1.125rem); line-height: 1.55; margin-top: 0.875rem; }
 .org { padding: 2.75rem 0 3.5rem; border-top: 1px solid var(--line); }
 .org h2 { margin-bottom: 0.5rem; }

@@ -56,3 +56,12 @@ ul.ck li::before { content: ""; position: absolute; left: 2px; top: 1.4375rem; w
 }
 @media (max-width: 640px) { .lbp, .lbn { display: none !important; } }
 @media (prefers-reduced-motion: reduce) { .gi img { transform: scale(1.02) !important; } }
+.det p + h3 { margin-top: 1.5rem; }
+
+.gal.n1 { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
+.gal.n1 .gi { aspect-ratio: 16 / 10; }
+.pg { display: grid; gap: 0.625rem; margin: 1.375rem 0; grid-template-columns: repeat(2, 1fr); }
+.pg .gi { aspect-ratio: 4 / 5; }
+@media (min-width: 760px) { .pg { grid-template-columns: repeat(3, 1fr); } }
+.pg .gi { min-width: 0; }
+.rev blockquote { font-size: clamp(1.125rem, 2.4vw, 1.375rem); line-height: 1.5; max-width: 38em; }

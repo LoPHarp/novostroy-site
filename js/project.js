@@ -2,6 +2,7 @@
 (function () {
   var $$ = Site.$$;
   var gis = $$('.gi');
+  var items = $$('.gi, .mi:not([data-clone])'); // всё, что открывается на весь экран
 
   // Параллакс: фото в галерее сдвигаются чуть медленнее страницы
   if (!Site.reduceMotion) {
@@ -39,7 +40,7 @@
     var html = '';
     var main = document.querySelector('.project [data-ba]');
     if (main) html += '<div class="lbs">' + main.outerHTML.replace(/ loading="lazy"/g, '') + '</div>';
-    gis.forEach(function (g) {
+    items.forEach(function (g) {
       html += '<div class="lbs">' + g.firstElementChild.outerHTML.replace(/ loading="lazy"/g, '') + '</div>';
     });
     track.innerHTML = html;
@@ -55,7 +56,18 @@
   }
   function close() { lb.classList.remove('on'); document.body.style.overflow = ''; }
 
-  gis.forEach(function (g, k) { g.addEventListener('click', function () { open(k + (document.querySelector('.project [data-ba]') ? 1 : 0)); }); });
+  var firstBa = function () { return document.querySelector('.project [data-ba]') ? 1 : 0; };
+  $$('.gi, .mi').forEach(function (g) {
+    g.addEventListener('click', function () {
+      if (Date.now() - Site.dragged < 300) return; // это было перетаскивание, а не нажатие
+      var k = items.indexOf(g);
+      if (k < 0) { // копия фото из бесконечной ленты: берём оригинал с тем же номером
+        var all = Array.prototype.slice.call(g.parentNode.children);
+        k = all.indexOf(g) % (all.length / 2);
+      }
+      open(k + firstBa());
+    });
+  });
   lb.querySelector('.lbx').onclick = close;
   lb.querySelector('.lbp').onclick = function () { go(cur - 1); };
   lb.querySelector('.lbn').onclick = function () { go(cur + 1); };

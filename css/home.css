@@ -7,14 +7,17 @@
   display: flex; align-items: flex-end; overflow: hidden;
   --p: 0; /* 0..1, меняется скриптом при прокрутке */
 }
-.hero > img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+.hero > .hs {
+  position: absolute; inset: 0;
   transform: scale(calc(1 + var(--p) * .12)) translateY(calc(var(--p) * 5%));
   will-change: transform;
 }
+.hs img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.4s ease; }
+.hs img.on { opacity: 1; }
+.hs img:nth-child(1) { object-position: 55% 50%; }
 .hero::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(26, 27, 29, .1) 0%, rgba(26, 27, 29, .5) 60%, rgba(26, 27, 29, .82) 100%);
+  background: linear-gradient(90deg, rgba(26, 27, 29, .6) 0%, rgba(26, 27, 29, .25) 55%, rgba(26, 27, 29, 0) 80%), linear-gradient(180deg, rgba(26, 27, 29, 0) 20%, rgba(26, 27, 29, .45) 55%, rgba(26, 27, 29, .9) 100%);
   opacity: calc(1 + var(--p));
 }
 .hero::before {
@@ -26,20 +29,24 @@
   transform: translateY(calc(var(--p) * -4.375rem));
   opacity: calc(1 - var(--p) * 1.4);
 }
-.hero h1 { font-size: clamp(2.5rem, 8vw, 5.25rem); margin-bottom: 1rem; }
-.hero p { color: #d8cfc0; font-size: 1.1875rem; }
+.hero h1 { font-size: clamp(2.25rem, 5.6vw, 4.25rem); margin-bottom: 1rem; max-width: 18em; }
+.hero p { color: #e6dccb; font-size: 1.1875rem; max-width: 34rem; }
+.hero .hb { display: flex; width: min(100%, 23.75rem); margin-top: 1.75rem; }
 .sheet {
   position: relative; z-index: 3; background: var(--bg);
   box-shadow: 0 -1.125rem 2.5rem rgba(0, 0, 0, .3); padding-top: 1.25rem;
 }
 @media (max-width: 640px) {
-  .hero { height: calc(100svh - 4rem - 10.3125rem); }
-  .hero .wrap { padding-bottom: 6rem; }
+  .hero { height: calc(100svh - 4rem - 5rem); }
+  .hero .wrap { padding-bottom: 2rem; }
+  .hero .hb { width: 100%; min-height: 3.5rem; }
 }
 
 /* О компании */
 .two { display: grid; gap: 1.75rem; }
-@media (min-width: 860px) { .two { grid-template-columns: 1fr 1.2fr; gap: 3.5rem; align-items: start; } }
+@media (min-width: 860px) { .two { grid-template-columns: 1.3fr 1fr; gap: 3.5rem; align-items: start; } }
+.vid.intro { width: min(100%, 15rem); }
+@media (min-width: 860px) { .vid.intro { width: min(100%, 19rem); justify-self: end; } }
 .cap { margin-top: 1rem; }
 
 /* Как работаем */
@@ -74,6 +81,6 @@ html.js .st.on .sb p { clip-path: inset(0); opacity: 1; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero > img, .hero .wrap { transform: none !important; }
+  .hero > .hs, .hero .wrap { transform: none !important; }
   .hero .wrap { opacity: 1 !important; }
 }

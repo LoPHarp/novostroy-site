@@ -310,12 +310,42 @@
     videos.forEach(function (v) {
       if (Site.reduceMotion) v.controls = true;
       if (vo) vo.observe(v); else v.src = v.dataset.src;
-      // нажатие: поставить на паузу или продолжить
-      v.parentNode.addEventListener('click', function () {
-        if (v.paused) { v.dataset.paused = ''; v.play(); } else { v.dataset.paused = '1'; v.pause(); }
-      });
+      // нажатие: открыть видео на весь экран, со звуком и перемоткой
+      v.parentNode.addEventListener('click', function () { openVideo(v); });
     });
   }
+
+  var vb = null;
+  function openVideo(src) {
+    if (!vb) {
+      vb = document.createElement('div');
+      vb.id = 'vb';
+      vb.innerHTML = '<video playsinline controls loop></video>' +
+        '<button class="vbx" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+      document.body.appendChild(vb);
+      var shut = function () {
+        var p = vb.querySelector('video'); p.pause(); p.removeAttribute('src'); p.load();
+        vb.classList.remove('on'); document.body.style.overflow = '';
+      };
+      vb.querySelector('.vbx').onclick = shut;
+      vb.addEventListener('click', function (e) { if (e.target === vb) shut(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && vb.classList.contains('on')) shut(); });
+    }
+    var p = vb.querySelector('video');
+    p.src = src.dataset.src || src.currentSrc; p.poster = src.poster || '';
+    vb.classList.add('on'); document.body.style.overflow = 'hidden';
+    var pr = p.play(); if (pr && pr.catch) pr.catch(function () {});
+    videos.forEach(function (x) { x.pause(); });
+  }
+
+  // На странице работ фото в карточках ведут на страницу объекта (там они открываются на весь экран)
+  $$('article.card .mi').forEach(function (m) {
+    m.addEventListener('click', function () {
+      if (Date.now() - Site.dragged < 300) return;
+      var a = m.closest('article').querySelector('a.ct');
+      if (a) location.href = a.href;
+    });
+  });
 
   // Ссылка на Telegram-канал в конце страницы работ
   $$('a.tgl').forEach(function (a) {

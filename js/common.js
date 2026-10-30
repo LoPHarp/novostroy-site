@@ -338,15 +338,6 @@
     videos.forEach(function (x) { x.pause(); });
   }
 
-  // На странице работ фото в карточках ведут на страницу объекта (там они открываются на весь экран)
-  $$('article.card .mi').forEach(function (m) {
-    m.addEventListener('click', function () {
-      if (Date.now() - Site.dragged < 300) return;
-      var a = m.closest('article').querySelector('a.ct');
-      if (a) location.href = a.href;
-    });
-  });
-
   // Ссылка на Telegram-канал в конце страницы работ
   $$('a.tgl').forEach(function (a) {
     if (CFG.telegram) { a.href = CFG.telegram; a.target = '_blank'; a.rel = 'noopener'; } else a.removeAttribute('href');

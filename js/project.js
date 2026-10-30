@@ -2,7 +2,7 @@
 (function () {
   var $$ = Site.$$;
   var gis = $$('.gi');
-  var items = $$('.gi, .mi:not([data-clone])'); // всё, что открывается на весь экран
+  var items = [];                      // что открывается на весь экран: текущая группа фото
 
   // Параллакс: фото в галерее сдвигаются чуть медленнее страницы
   if (!Site.reduceMotion) {
@@ -36,7 +36,8 @@
     lb.querySelector('.lbp').style.visibility = cur ? 'visible' : 'hidden';
     lb.querySelector('.lbn').style.visibility = cur < count - 1 ? 'visible' : 'hidden';
   }
-  function open(i) {
+  function open(i, group) {
+    items = group;
     var html = '';
     var main = document.querySelector('.project [data-ba]');
     if (main) html += '<div class="lbs">' + main.outerHTML.replace(/ loading="lazy"/g, '') + '</div>';
@@ -60,12 +61,17 @@
   $$('.gi, .mi').forEach(function (g) {
     g.addEventListener('click', function () {
       if (Date.now() - Site.dragged < 300) return; // это было перетаскивание, а не нажатие
-      var k = items.indexOf(g);
-      if (k < 0) { // копия фото из бесконечной ленты: берём оригинал с тем же номером
-        var all = Array.prototype.slice.call(g.parentNode.children);
-        k = all.indexOf(g) % (all.length / 2);
+      var mq = g.closest('.mq'), k, group;
+      if (mq) { // фото из ленты: открываем все фото этой ленты, копию из бесконечной петли приводим к оригиналу
+        var all = Array.prototype.slice.call(mq.firstElementChild.children);
+        var n = all.length / 2;
+        group = all.slice(0, n);
+        k = all.indexOf(g) % n;
+      } else {
+        group = $$('.gi');
+        k = group.indexOf(g);
       }
-      open(k + firstBa());
+      open(k + firstBa(), group);
     });
   });
   lb.querySelector('.lbx').onclick = close;

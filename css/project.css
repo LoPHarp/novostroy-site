@@ -29,32 +29,6 @@ ul.ck li::before { content: ""; position: absolute; left: 2px; top: 1.4375rem; w
 .rev { margin-top: 2.25rem; }
 .backbox { margin: 2.5rem 0 3.5rem; }
 
-/* Просмотр фото на весь экран */
-#lb {
-  position: fixed; inset: 0; z-index: 100; background: #0b0b0c; display: none;
-  touch-action: pan-y; user-select: none; -webkit-user-select: none; overflow: hidden;
-}
-#lb.on { display: block; }
-.lbt { position: absolute; inset: 0; display: flex; transition: transform .25s ease; will-change: transform; }
-.lbs { flex: 0 0 100%; display: grid; place-items: center; padding: 4rem 0.875rem 3.5rem; min-width: 0; }
-.lbs > img { width: 100%; max-height: calc(100svh - 8.125rem); object-fit: contain; border-radius: 0.5rem; }
-.lbs .ba { width: min(100%, 68.75rem); margin: 0; }
-#lb button {
-  position: absolute; z-index: 3; width: 3rem; height: 3rem; border-radius: 50%;
-  background: rgba(40, 41, 44, .85); border: 1px solid var(--line);
-  display: grid; place-content: center; color: var(--tx);
-}
-#lb button svg { width: 1.375rem; height: 1.375rem; }
-.lbx { top: max(0.75rem, env(safe-area-inset-top)); right: 0.875rem; }
-.lbp, .lbn { top: 50%; margin-top: -1.5rem; }
-.lbp { left: 0.875rem; }
-.lbn { right: 0.875rem; }
-.lbp svg { transform: scaleX(-1); }
-.lbc {
-  position: absolute; bottom: max(1.125rem, env(safe-area-inset-bottom)); left: 0; right: 0;
-  text-align: center; color: var(--mut); font-size: 0.9375rem; letter-spacing: .1em;
-}
-@media (max-width: 640px) { .lbp, .lbn { display: none !important; } }
 @media (prefers-reduced-motion: reduce) { .gi img { transform: scale(1.02) !important; } }
 .det p + h3 { margin-top: 1.5rem; }
 

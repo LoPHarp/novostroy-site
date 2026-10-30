@@ -14,3 +14,7 @@
 .card blockquote { font-size: clamp(1rem, 2vw, 1.125rem); line-height: 1.55; margin-top: 0.875rem; }
 .org { padding: 2.75rem 0 3.5rem; border-top: 1px solid var(--line); }
 .org h2 { margin-bottom: 0.5rem; }
+
+.org ul { list-style: none; margin-top: 1rem; max-width: 42rem; }
+.org li { position: relative; padding: 0.5rem 0 0.5rem 1.625rem; color: var(--mut); font-size: 1.0625rem; line-height: 1.55; }
+.org li::before { content: ""; position: absolute; left: 2px; top: 1.1875rem; width: 0.625rem; height: 2px; background: var(--br); }

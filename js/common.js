@@ -242,9 +242,11 @@
     });
     var visible = false, held = false, pos = 0, last = 0, lastInput = 0, lastSet = -1;
     var touched = function () { lastInput = Date.now(); };
-    ['touchstart', 'pointerdown'].forEach(function (ev) { el.addEventListener(ev, function () { held = true; touched(); }, { passive: true }); });
-    ['touchend', 'touchcancel', 'pointerup', 'pointercancel'].forEach(function (ev) { window.addEventListener(ev, function () { held = false; touched(); }, { passive: true }); });
-    el.addEventListener('wheel', touched, { passive: true });
+    // Палец на ленте: пока держим, стоит. Просто коснулись или листаем страницу вверх-вниз: сразу плывёт дальше.
+    // Две секунды паузы только после настоящей горизонтальной прокрутки (её ловит событие scroll ниже).
+    el.addEventListener('touchstart', function () { held = true; }, { passive: true });
+    ['touchend', 'touchcancel'].forEach(function (ev) { window.addEventListener(ev, function () { held = false; }, { passive: true }); });
+    el.addEventListener('wheel', function (e) { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) touched(); }, { passive: true });
     el.addEventListener('scroll', function () {
       // прокрутку, которую сделали мы сами, не считаем касанием (это и пальцы, и инерция после броска)
       if (Math.abs(el.scrollLeft - lastSet) > 2) touched();

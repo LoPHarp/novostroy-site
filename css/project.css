@@ -40,7 +40,7 @@ ul.ck li::before { content: ""; position: absolute; left: 2px; top: 1.4375rem; w
 .pg .gi { min-width: 0; }
 .rev blockquote { font-size: clamp(1.125rem, 2.4vw, 1.375rem); line-height: 1.5; max-width: none; }
 
-.meta { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin: 1.5rem 0 0; padding: 1rem 0; border-top: 1px solid rgba(235, 200, 150, .18); border-bottom: 1px solid rgba(235, 200, 150, .18); }
+.meta { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin: 1.5rem 0 2.5rem; padding: 1rem 0; border-top: 1px solid rgba(235, 200, 150, .18); border-bottom: 1px solid rgba(235, 200, 150, .18); }
 .meta dt { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--br); }
 .meta dd { margin: 0.25rem 0 0; font-size: 1.0625rem; }
 .pnote { margin-top: 1.25rem; color: var(--mut); }

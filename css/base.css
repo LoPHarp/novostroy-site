@@ -299,3 +299,6 @@ a.vw .rvtg { margin-top: auto; padding-top: 0.75rem; }
   text-align: center; color: var(--mut); font-size: 0.9375rem; letter-spacing: .1em;
 }
 @media (max-width: 640px) { .lbp, .lbn { display: none !important; } }
+
+.rvlbl { margin: 1.25rem 0 0; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--br); }
+.rvlbl + blockquote { margin-top: 0.5rem; }

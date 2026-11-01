@@ -74,7 +74,7 @@
     '<a class="xo wal-link" href="#"></a><a class="xo tl" href="#"></a>' +
     '<a class="soc" data-k="instagram" href="#"></a><a class="soc" data-k="facebook" href="#"></a><a class="soc" data-k="telegram" href="#"></a>' +
     '</nav><a class="brand" href="index.html"><span>NOVOSTROY<small>CONSTRUCTION</small></span></a></div>' +
-    '<p class="copy" data-t="tg_note"></p></div></footer>';
+    '<p class="copy" data-t="tg_note"></p><p class="copy legal">NOVOSTROY CONSTRUCTION LTD</p></div></footer>';
 
   function mount(id, html) {
     var ph = document.getElementById(id);

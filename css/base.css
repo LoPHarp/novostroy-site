@@ -302,3 +302,5 @@ a.vw .rvtg { margin-top: auto; padding-top: 0.75rem; }
 
 .rvlbl { margin: 1.25rem 0 0; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--br); }
 .rvlbl + blockquote { margin-top: 0.5rem; }
+
+.copy.legal { margin-top: 0.5rem; letter-spacing: 0.14em; color: #8a8478; }

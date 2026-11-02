@@ -304,3 +304,4 @@ a.vw .rvtg { margin-top: auto; padding-top: 0.75rem; }
 .rvlbl + blockquote { margin-top: 0.5rem; }
 
 .copy.legal { margin-top: 0.5rem; letter-spacing: 0.14em; color: #8a8478; }
+@media (min-width: 640px) { .vgrid { grid-template-columns: repeat(3, 1fr); gap: 2rem 1.25rem; } }

@@ -112,11 +112,11 @@ window.LANGS = {
     o1_term: "5 рабочих дней",
     v_roof: "Гидроизоляция крыши · 375 м²",
     v_roofp: "Очистка, грунтование и нанесение двух слоёв гидроизоляции. Срок — 5 дней. Гарантия производителя на материалы — 10 лет.",
-    title_home: "Novostroy Construction — ремонт под ключ в Лимассоле",
-    title_works: "Работы и отзывы — Novostroy Construction",
-    title_villa: "Вилла — Novostroy Construction",
-    title_house: "Дом — Novostroy Construction",
-    title_game: "Игровая комната — Novostroy Construction"
+    title_home: "Ремонт под ключ в Лимассоле — Novostroy Construction",
+    title_works: "Наши работы и отзывы в Лимассоле — Novostroy Construction",
+    title_villa: "Замена освещения на вилле, Лимассол — Novostroy Construction",
+    title_house: "Ремонт дома 300 м² в Лимассоле — Novostroy Construction",
+    title_game: "Ремонт игровой комнаты в Лимассоле — Novostroy Construction"
   },
   ua: {
     nav_home: "Головна",
@@ -229,11 +229,11 @@ window.LANGS = {
     o1_term: "5 робочих днів",
     v_roof: "Гідроізоляція даху · 375 м²",
     v_roofp: "Очищення, ґрунтування та нанесення двох шарів гідроізоляції. Термін — 5 днів. Гарантія виробника на матеріали — 10 років.",
-    title_home: "Novostroy Construction — ремонт під ключ у Лімасолі",
-    title_works: "Роботи та відгуки — Novostroy Construction",
-    title_villa: "Вілла — Novostroy Construction",
-    title_house: "Будинок — Novostroy Construction",
-    title_game: "Ігрова кімната — Novostroy Construction"
+    title_home: "Ремонт під ключ у Лімасолі — Novostroy Construction",
+    title_works: "Наші роботи та відгуки в Лімасолі — Novostroy Construction",
+    title_villa: "Заміна освітлення на віллі, Лімасол — Novostroy Construction",
+    title_house: "Ремонт будинку 300 м² у Лімасолі — Novostroy Construction",
+    title_game: "Ремонт ігрової кімнати в Лімасолі — Novostroy Construction"
   },
   en: {
     nav_home: "Home",
@@ -346,10 +346,10 @@ window.LANGS = {
     o1_term: "5 working days",
     v_roof: "Roof waterproofing · 375 m²",
     v_roofp: "Cleaning, priming and two coats of waterproofing. Duration: 5 days. Manufacturer’s warranty on the materials: 10 years.",
-    title_home: "Novostroy Construction — turnkey renovation in Limassol",
-    title_works: "Works & reviews — Novostroy Construction",
-    title_villa: "Villa — Novostroy Construction",
-    title_house: "House — Novostroy Construction",
-    title_game: "Game room — Novostroy Construction"
+    title_home: "Turnkey renovation in Limassol — Novostroy Construction",
+    title_works: "Our works and reviews in Limassol — Novostroy Construction",
+    title_villa: "Villa lighting replacement, Limassol — Novostroy Construction",
+    title_house: "300 m² house renovation in Limassol — Novostroy Construction",
+    title_game: "Game room renovation in Limassol — Novostroy Construction"
   }
 };

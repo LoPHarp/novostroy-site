@@ -32,6 +32,13 @@
   var LANG_BTNS = [['ru', 'RU'], ['ua', 'UA'], ['en', 'EN']]; // порядок и подписи переключателя языков
 
   // ---------- Язык ----------
+  try {
+    if (/^https?:$/.test(location.protocol)) {
+      var cp = location.pathname.replace(/(^|\/)index\.html$/, '$1').replace(/\.html$/, '');
+      if (cp !== location.pathname) history.replaceState(null, '', cp + location.search + location.hash);
+    }
+  } catch (e) {}
+
   var lang = 'ru';
   try {
     lang = localStorage.getItem('lang') ||
@@ -56,14 +63,14 @@
   };
 
   // ---------- Шапка, блок контактов, подвал ----------
-  var contactsHref = hasCta ? '#contacts' : 'works.html#contacts';
+  var contactsHref = hasCta ? '#contacts' : 'works#contacts';
   var headerHtml =
     '<header class="site-header"><div class="wrap hd">' +
-    '<a class="brand" href="index.html"><span>NOVOSTROY<small>CONSTRUCTION</small></span></a>' +
-    '<nav class="d"><a href="index.html" data-n="home" data-t="nav_home"></a><a href="works.html" data-n="works" data-t="nav_works"></a><a href="' + contactsHref + '" data-t="nav_contacts"></a></nav>' +
+    '<a class="brand" href="./"><span>NOVOSTROY<small>CONSTRUCTION</small></span></a>' +
+    '<nav class="d"><a href="./" data-n="home" data-t="nav_home"></a><a href="works" data-n="works" data-t="nav_works"></a><a href="' + contactsHref + '" data-t="nav_contacts"></a></nav>' +
     '<div class="fl"></div>' +
     '<button class="burger" aria-label="Menu"><i></i><i></i><i></i></button></div>' +
-    '<div class="menu"><a href="index.html" data-t="nav_home"></a><a href="works.html" data-t="nav_works"></a><a href="' + contactsHref + '" data-t="nav_contacts"></a></div></header>';
+    '<div class="menu"><a href="./" data-t="nav_home"></a><a href="works" data-t="nav_works"></a><a href="' + contactsHref + '" data-t="nav_contacts"></a></div></header>';
 
   var ctaHtml =
     '<section class="cta" id="contacts"><div class="wrap"><h2 data-t="c_h"></h2><p data-t="c_p"></p>' +
@@ -73,7 +80,7 @@
     '<footer class="site-footer"><div class="wrap"><div class="ft"><nav>' +
     '<a class="xo wal-link" href="#"></a><a class="xo tl" href="#"></a>' +
     '<a class="soc" data-k="instagram" href="#"></a><a class="soc" data-k="facebook" href="#"></a><a class="soc" data-k="telegram" href="#"></a>' +
-    '</nav><a class="brand" href="index.html"><span>NOVOSTROY<small>CONSTRUCTION</small></span></a></div>' +
+    '</nav><a class="brand" href="./"><span>NOVOSTROY<small>CONSTRUCTION</small></span></a></div>' +
     '<p class="copy" data-t="tg_note"></p><p class="copy legal">NOVOSTROY CONSTRUCTIONS LTD</p></div></footer>';
 
   function mount(id, html) {
